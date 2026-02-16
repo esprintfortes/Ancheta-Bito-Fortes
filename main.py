@@ -7,3 +7,5 @@ Group Members:
     Ancheta, Viktoria
 '''
 # At your service and ready to lead!
+
+print("Hello World!")
