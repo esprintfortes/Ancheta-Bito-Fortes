@@ -1,3 +1,4 @@
+import time
 # How to be a Physics Pro
 # Created by Team Curiosity
 '''
@@ -6,7 +7,28 @@ Group Members:
     Bito, Seth
     Ancheta, Viktoria
 '''
+
 # At your service and ready to lead!
+#loading screen
+for a in range(10):
+    print(".")
+    time.sleep(.2)
+print("Loading...")
+bar = "start------------------end"
+print(bar)
+for a in range(6):
+    print(".", end=".")
+    time.sleep(.5)
+    print(".", end=".")
+
+print("\n ")
+print('''\n  /¯\     /¯\ 
+ /   \    /  \ 
+<   |¯|    |¯| >
+<   |_|  W |_| >
+     |     |
+LOADED!!''')
+
 
 print("Hello World!")
 
