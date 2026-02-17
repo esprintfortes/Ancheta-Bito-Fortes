@@ -9,21 +9,16 @@ Group Members:
 # At your service and ready to lead!
 
 # ( Libraries )
-import json
-import time as t
-import datetime
-import csv
-import random
+import json, time as t, csv, random, os
 
 #=======================================================================================================================
 # Loading screen
 def loading_bar(): # function for the loading bar!
-    print("\n--- INITIALIZING TEAM CURIOSITY PHYSICS ENGINE ---") # THIS IS SO COOL
+    print("\n--- INITIALIZING ENGINE ---") # THIS IS SO COOL
     bar_length = 40 # Bar length so that I can use this for the for loop!
     for i in range(bar_length + 1):
-        percent = int((i / bar_length) * 100)  # divides
-        # Create the bar string: blocks for progress thingy thingy, spaces for the remaining to be filled up
-        bar = "█" * i + "-" * (bar_length - i) # I got this coding from google but i can't remember where!
+        percent = int((i / bar_length) * 100)  # divides and gets the percentage
+        bar = "█" * i + "-" * (bar_length - i)
 
         # \r moves the cursor to the start of the line, i saw this in google iand it actually helped
         # end="" prevents a new line, so it doesnt print by columns
@@ -47,13 +42,70 @@ for line in robot.split('\n'): # used .split to split the string!
     print(line)
     t.sleep(0.3)
 
-loading_bar() #loads the laoding bar animation after the watermark
+#======================================================================================================================
+# Authentication system for the leaderboard
+def update_data(name, password=None, score=0, signup=False):
+    # Log in or Sign Up
+    try:
+        with open("users.json", "r") as f:
+            data = json.load(f)
+    except:
+        data = {}
+    if signup:
+        data[name] = {"password": password, "score": 0}
+    elif name in data:
+        data[name]["score"] += score
+
+    with open("users.json", "w") as f:
+        json.dump(data, f)
+    return data.get(name)
+
+print("Welcome!")
+print("------ AUTHENTICATION FIRST ------")
+setup = r'''
+[1] >> Log In
+[2] >> Sign Up
+'''
+
+for i in setup:
+    print(i, end="", flush=True)
+    t.sleep(0.2)
+t.sleep(0.3)
+t.sleep(0.6)
+print("\n If you have an existing account: [1] Log In"
+      "\n If you are brand new: [2] Sign Up"
+      "\n\n [1] / [2]")
+t.sleep(0.8)
+authentication = input(" >> ")
+username = input(" Name: ").lower()
+passw = input("Password: ")
+
+if authentication == "2":
+    update_data(username, passw, signup=True)
+    t.sleep(.4)
+    print("Account created.")
+    # Important: reload account data so the rest of the script can use it
+    account = update_data(username)
+else:
+    account = update_data(username, passw)
+    if not account or account.get("password") != passw:
+        print("Wrong login, restart the program, try again.")
+        exit()
+
+t.sleep(.5)
+print(f"\n\nLogin Successful! Welcome {username}.")
+
+#======================================================================================================================
+t.sleep(.5)
+print("\n"*50)
+loading_bar() #loads the loading bar animation after the watermark
+
 #=======================================================================================================================
 # This is the banner printer ot the title screen zone!
 # This area prints an ascii art of "Gravity Pulls"
 #(Text to ASCII Art Generator (TAAG), n.d.)
 try:
-    print("\n"*20)
+    print("\n"*10)
     t.sleep(.5)
     filename = "banner.json"
     with open(filename, "r") as file: # got this from past codes
@@ -61,7 +113,7 @@ try:
         data = json.load(file)
     # prints the data here
     t.sleep(.5)
-    print("\n"*10)
+    print("\n"*20)
     t.sleep(2)
     print(data["ascii_art"]) # prints the specific part of the data
 except FileNotFoundError:
@@ -91,38 +143,38 @@ def welcome():
        If the code starts acting up, 
        call the CEO (that's me btw).
     
-       LETS GET IT. 🚀
+       LETS DOOOOOOOOOOO IT. 🚀  
     '''
-    print("\n" + "  WELCOME TO THE FUTURE  ".center(50, "="))
-    print(r'''
-           _____  _    _  _____  _____  
-          |  _  || |  | ||_   _||___  |
-          | | | || |  | |  | |     / /    
-          | | | || |  | |  | |    / /       
-          \ \_/ /| |__| | _| |_  / /__   
-           \___/  \____/ |_____||_____| 
-    
-    ''')
+
     for i in welcome_message:
         print(i, end="", flush=True) # adds a cool typing animation
         t.sleep(0.1) # speed of the typing
 welcome()
-print("\n"*30)
+print("\n"*50)
 #=======================================================================================================================
-def physics_mission(): # physics mission 1
+
+
+def physics_mission():
+    # In this def function, the user must complete a quiz, that has questions that vary, if they get it incorrect they lose -0.25,
+    # and they are still allowed to retake the same question, which keeps repeating.
+    # They choose what quarter they want to learn
     choices = r'''
-     [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum.)
-     [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation,Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
-                    Conservation of Mechanical Energy, Heat Transfer.)
-    '''
-    print("\n" + "--- SELECT YOUR CURRENT MISSION ---".center(50)) #eme
+    [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum.)
+    [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation,Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
+                   Conservation of Mechanical Energy, Heat Transfer.)
+    [Q3] > Quarter 3 in Progress (True or False, Modified True or False, incoming alongside it.)
+   '''
+    #
+    print()
+    print("\n" + "--- SELECT WHAT QUARTER YOU NEED ---".center(50))  # eme
     for i in choices:
         print(i, end="", flush=True)
         t.sleep(0.01)  # speed of the typing
+
     try:
         sub_choice = input("\nSelect Mission [1-2]: ").strip()
 
-        # Determining the file target
+        # Determine what csv file is needed, through the quarter choosing
         if sub_choice == "1":
             filename = "physics_q1.csv"
         elif sub_choice == "2":
@@ -131,17 +183,29 @@ def physics_mission(): # physics mission 1
             print("\n[!] Input is wrong!. You shall now be./////////. Defaulting to Q2 Mission...")
             filename = "physics_q2.csv"
 
-        with open(filename, mode='r', encoding='utf-8') as file:
+        with open(filename, mode='r', encoding='utf-8') as file:  # Using encoding='utf-8' ensures your text files...
             reader = csv.DictReader(file)
-            questions = list(reader)
+            questions = list(
+                reader)  # questions, the variable acts as a list so you can see anywhere from the list list, useful for randomize
 
         if not questions:
-            print("\n⚠️ Database is empty! Edgar, add some questions!.")
+            print("\n⚠️ Database is empty! Devs, add some questions!.")
             return
+
+        # ==============================================================================================================
+        # This part is basically the user choosing how many questions they want to do.
+        diff = r'''
+       Easy [1]      -> 5 Questions
+       Medium [2]    -> 10 Questions
+       Hard [3]      -> 20 Questions 
+       Limitless [4] -> ? Questions
+       '''
+        for i in diff:
+            print(i, end="", flush=True)
+            t.sleep(.003)
 
         difficulty = input("\nSelect Difficulty [1-4]: ").strip()
 
-        # Mapping difficulty to question counts
         if difficulty == "1":
             limit = 5
         elif difficulty == "2":
@@ -149,15 +213,88 @@ def physics_mission(): # physics mission 1
         elif difficulty == "3":
             limit = 20
         elif difficulty == "4":
-            limit = random.randint(20, 30)  # Randomizes the "Limitless" vibe
+            if sub_choice == "2":
+                limit = random.randint(20, 95)
+            else:
+                limit = random.randint(20, 103)
+
         else:
-            print("[!] Unknown setting. Defaulting to Easy mode.")
+            print("[!] Error: Defaulting to Easy mode.")
             limit = 5
 
+        # Shuffle and Slice
         random.shuffle(questions)
-        # Randomize for that fresh experienc
-        #e
-        # To be continued
+        selected_questions = questions[:limit]
+
+        # Initialize point counters
+        total_earned = 0
+        potential_max = 0
+        # ===============================================================================================================
+        for i, q in enumerate(selected_questions, 1):
+            # Determine points for a specific question
+            label = q['Difficulty'].strip().title()  # .title() acts just like .upper(), and .lower() but instead it
+            # capitalizes the first letter, and lowers the other.
+            if label == "Easy":  # if the difficulty in the
+                value = 1.0
+            elif label == "Medium":
+                value = 2.0
+            elif label == "Hard":
+                value = 5.0
+            else:
+                value = 1.0  # Just in case an error happens
+
+            potential_max += value  #
+
+            current_val = value  # This will decrease with mistakes!
+            answered_correctly = False
+
+            # ===============================================================================================================
+
+            while not answered_correctly and current_val > 0:
+                # Prints this for every question!
+                print(f"\n Question {i} | Potential: {current_val} pts")
+                t.sleep(0.3)
+                print(f"TOPIC: {q['Topic']}")
+                t.sleep(0.3)
+                print(f"QUESTION: {q['Question']}")
+                t.sleep(0.3)
+                # ===============================================================================================================
+                t.sleep(0.4)
+                if q.get('Choice_A'): print(f" [A] {q['Choice_A']}")
+                t.sleep(0.4)
+                if q.get('Choice_B'): print(f" [B] {q['Choice_B']}")
+                t.sleep(0.4)
+                if q.get('Choice_C'): print(f" [C] {q['Choice_C']}")
+                t.sleep(0.4)
+                if q.get('Choice_D'): print(f" [D] {q['Choice_D']}")
+                # ===============================================================================================================
+                ans = input("\nYour Answer >> ").strip().upper()
+
+                if ans == q['Correct'].upper():
+                    if q.get('Explanation'):
+                        print(f"📖 Explanation: {q['Explanation']}")
+                    print(f" Correct! +{current_val} points added.")
+                    total_earned += current_val
+                    answered_correctly = True  # This tells the while loop to stop repeating this question!
+
+                else:
+                    current_val -= 0.25  # Apply penalty
+                    if current_val > 0:
+                        print(f"❌ Incorrect. Penalty: -0.25. Potential now: {current_val}")
+                        print("You can do it! Just think outside the box! !")
+                    else:
+                        print(f"❌ Out of points! The answer was: {q['Correct']}.")
+                        if q.get('Explanation'):
+                            print(f"📖 Explanation: {q['Explanation']}")
+                        # The loop ends because current_val is no longer > 0
+
+        # ===============================================================================================================
+
+        # 3. Syncs to user.json, to see the pointers!
+
+        print(f"\nYou earned {total_earned} out of {potential_max} potential points.")
+
+        update_data(username, score=total_earned)  # update the data!
 
 
     except FileNotFoundError:
@@ -166,17 +303,17 @@ def physics_mission(): # physics mission 1
 
     except Exception as e:
         print(f"\n[⚠️] UNKNOWN GLITCH: {e}")
-
-#======================================================================================================================
+#=======================================================================================================================
 def architect_quiz():
     print()
-#======================================================================================================================
+#=======================================================================================================================
 def leaderboard():
     print()
-#======================================================================================================================
-def exit():
-    print()
-#======================================================================================================================
+#=======================================================================================================================
+
+#=======================================================================================================================
+
+#=======================================================================================================================
 def main_menu():
     # main menu!
     print(" ╔════════════════════════════════════╗")
