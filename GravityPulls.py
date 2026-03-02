@@ -46,35 +46,7 @@ for line in robot.split('\n'): # used .split to split the string!
 
 
 # ======================================================================================================================
-# Instructions/Menu Function
-def show_instructions():
-    """Explains what the program does, how to use it, and menu options."""
-    print("\n" + "=" * 50)
-    print("      📜 PROGRAM INSTRUCTIONS & MANUAL 📜")
-    print("=" * 50)
 
-    # Part A: What it does
-    print("\n[A] WHAT IS THIS PROGRAM?")
-    print("    'Gravity Pulls With Curiosity' is a study tool built specifically")
-    print("    for Grade 8 students to master Physics. It uses gamified quizzes")
-    print("    to help you understand Motion, Force, Energy, and Heat Transfer.")
-
-    # Part B: How to use it
-    print("\n[B] HOW TO USE IT:")
-    print("    1. Navigation: Use the numbers [1-5] to select menu options.")
-    print("    2. Quizzes: Type the letter (A, B, C, or D) of your answer.")
-    print("    3. Scoring: Correct answers give full points. Mistakes have a")
-    print("       -0.25 penalty, but you can retry until you get it right!")
-
-    # Part C: Menu Meanings
-    print("\n[C] MENU OPTIONS:")
-    print("    [1] Physics Mission: Take premade quizzes based on school quarters.")
-    print("    [2] Quiz Architect: Create your own physics questions.")
-    print("    [3] Leaderboard: View top scores and compete with peers.")
-    print("    [4] Instructions: Opens this manual.")
-    print("    [5] Exit: Safely closes the system.")
-
-    input("\n[ Press Enter to return to the Main Menu ]")
 # Authentication system for the leaderboard
 def update_data(name, password=None, score=0, signup=False):
     # Log in or Sign Up
@@ -178,6 +150,12 @@ def welcome():
        call the CEO (that's me btw).
 
        LETS DOOOOOOOOOOO IT. 🚀  
+       
+       This is Seth here (your 2nd dev).
+       Are you ready for a fun physics journey?
+       
+       Make sure to take your time and enjoy.
+       Good luck!
     '''
 
     for i in welcome_message:
@@ -342,14 +320,35 @@ def physics_mission():
 
 
 # =======================================================================================================================
-def architect_quiz():
-    print()
-
 
 # =======================================================================================================================
-def leaderboard():
-    print()
+# Instructions/Menu Function
+def show_instructions():
+    """Explains what the program does, how to use it, and menu options."""
+    print("\n" + "=" * 50)
+    print("      📜 PROGRAM INSTRUCTIONS & MANUAL 📜")
+    print("=" * 50)
 
+    # Part A: What it does
+    print("\n[A] WHAT IS THIS PROGRAM?")
+    print("    'Gravity Pulls With Curiosity' is a study tool built specifically")
+    print("    for Grade 8 students to master Physics. It uses gamified quizzes")
+    print("    to help you understand Motion, Force, Energy, and Heat Transfer.")
+
+    # Part B: How to use it
+    print("\n[B] HOW TO USE IT:")
+    print("    1. Navigation: Use the numbers [1-5] to select menu options.")
+    print("    2. Quizzes: Type the letter (A, B, C, or D) of your answer.")
+    print("    3. Scoring: Correct answers give full points. Mistakes have a")
+    print("       -0.25 penalty, but you can retry until you get it right!")
+
+    # Part C: Menu Meanings
+    print("\n[C] MENU OPTIONS:")
+    print("    [1] Physics Mission: Take premade quizzes based on school quarters.")
+    print("    [2] Instructions: Opens this manual.")
+    print("    [3] Exit: Safely closes the system.")
+
+    input("\n[ Press Enter to return to the Main Menu ]")
 
 # =======================================================================================================================
 
@@ -364,9 +363,8 @@ def main_menu():
 
     choices = r'''
     [1] > Launch Physics Mission
-    [2] > Access Quiz Architect
-    [3] > Leaderboard
-    [4] > Exit System
+    [2] > Menu/Instructions
+    [3] > Exit System
     '''
     for i in choices:
         print(i, end="", flush=True)
@@ -386,12 +384,9 @@ if user_choice == "1":
     print("\nLoading the quiz... Good luck!")
     physics_mission()
 elif user_choice == "2":
-    print("\nOpening the Quiz Maker.")
-    architect_quiz()
-elif user_choice == "3":
     print()
-    leaderboard()
-elif user_choice == "4":
+    show_instructions()
+elif user_choice == "3":
     print("\nPeace out! See you next time.")
     exit()
 else:
