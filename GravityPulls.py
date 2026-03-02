@@ -42,7 +42,7 @@ robot = r'''
 # Loop through the string and print each line with a delay
 for line in robot.split('\n'): # used .split to split the string!
     print(line)
-    t.sleep(0.3)
+    t.sleep(0.03)
 
 
 # ======================================================================================================================
@@ -133,7 +133,7 @@ for i in range(50):  # for loop to print "--" consecutively 50 times
     print("--", end="")
 for char in message:  # for loop
     print(char, end="", flush=True)  # typing animation
-    t.sleep(0.1)  # speed of the typing
+    t.sleep(0.01)  # speed of the typing
 
 
 # =======================================================================================================================
@@ -156,11 +156,17 @@ def welcome():
        
        Make sure to take your time and enjoy.
        Good luck!
+       
+       Sup! This is Viktoria here (your 3rd dev)
+       I hope you enjoy our cool physics code! 
+       And probably, you can get a good score on your LTs instead of a 12/30.
+       
+       Have fun!!!
     '''
 
     for i in welcome_message:
         print(i, end="", flush=True)  # adds a cool typing animation
-        t.sleep(0.1)  # speed of the typing
+        t.sleep(0.001)  # speed of the typing
 
 
 welcome()
@@ -368,7 +374,7 @@ def main_menu():
     '''
     for i in choices:
         print(i, end="", flush=True)
-        t.sleep(0.1)  # speed of the typing
+        t.sleep(0.01)  # speed of the typing
 
     print("\n " + "—" * 38)
 
