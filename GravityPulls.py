@@ -354,7 +354,7 @@ def show_instructions():
     print("    [2] Instructions: Opens this manual.")
     print("    [3] Exit: Safely closes the system.")
 
-    input("\n[ Press 1 to return to the Main Menu ]")
+    input("\n[ Press 1 to return to the Main Menu ]")#in progress
 
 # =======================================================================================================================
 
