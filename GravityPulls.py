@@ -21,8 +21,8 @@ def loading_bar():  # function for the loading bar!
         percent = int((i / bar_length) * 100)  # divides and gets the percentage
         bar = "█" * i + "-" * (bar_length - i)
 
-        # \r moves the cursor to the start of the line, i saw this in google iand it actually helped
-        # end="" prevents a new line, so it doesnt print by columns
+        # \r moves the cursor to the start of the line,  saw this in google iand it actually helped
+        # end="" prevents a new line, so it doesn't print by columns
         print(f"\r[{bar}] {percent}%", end="", flush=True)
 
         t.sleep(0.05)
@@ -133,7 +133,7 @@ for i in range(50):  # for loop to print "--" consecutively 50 times
     print("--", end="")
 for char in message:  # for loop
     print(char, end="", flush=True)  # typing animation
-    t.sleep(0.01)  # speed of the typing
+    t.sleep(0.001)  # speed of the typing
 
 
 # =======================================================================================================================
@@ -166,7 +166,7 @@ def welcome():
 
     for i in welcome_message:
         print(i, end="", flush=True)  # adds a cool typing animation
-        t.sleep(0.001)  # speed of the typing
+        t.sleep(0.01)  # speed of the typing
 
 
 welcome()
@@ -199,6 +199,8 @@ def physics_mission():
             filename = "physics_q1.csv"
         elif sub_choice == "2":
             filename = "physics_q2.csv"
+        elif sub_choice == "3":
+            filename = "physics_q3.csv"
         else:
             print("\n[!] Input is wrong!. You shall now be./////////. Defaulting to Q2 Mission...")
             filename = "physics_q2.csv"
@@ -352,12 +354,22 @@ def show_instructions():
     print("\n[C] MENU OPTIONS:")
     print("    [1] Physics Mission: Take premade quizzes based on school quarters.")
     print("    [2] Instructions: Opens this manual.")
-    print("    [3] Exit: Safely closes the system.")
+    print("    [3] Review Page: Still Building.")
+    print("    [4] Exit: Safely closes the system.")
+
 
     input("\n[ Press Enter to return to the Main Menu ]")
 
 # =======================================================================================================================
-
+def review_page():
+    mess = ("Upcoming Feature!"
+            "Please wait 'till further announcement!"
+            "Version: OS v1.1")
+    for character in message:
+        print(character, end="", flush=True)
+        t.sleep(.001)
+    print("Try another option!")
+    exit()
 # =======================================================================================================================
 
 # =======================================================================================================================
@@ -369,8 +381,9 @@ def main_menu():
 
     choices = r'''
     [1] > Launch Physics Mission
-    [2] > Menu/Instructions
-    [3] > Exit System
+    [2] > Instructions
+    [3] > Review Page
+    [4] > Exit System
     '''
     for i in choices:
         print(i, end="", flush=True)
@@ -386,17 +399,24 @@ def main_menu():
 user_choice = main_menu()
 
 # Handle the choice
-if user_choice == "1":
-    print("\nLoading the quiz... Good luck!")
-    physics_mission()
-elif user_choice == "2":
-    print()
-    show_instructions()
-elif user_choice == "3":
-    print("\nPeace out! See you next time.")
-    exit()
-else:
-    print()
+while user_choice not in["1","2","3","4"]:
+    print("Invalid input!")
+    user_choice = input("Please select a new, valid option.")
+
+
+    if user_choice == "1":
+        print("\nLoading the quiz... Good luck!")
+        physics_mission()
+    elif user_choice == "2":
+        print()
+        show_instructions()
+    elif user_choice == "3":
+        review_page()
+    elif user_choice == "4":
+        print("\nPeace out! See you next time.")
+        exit()
+    else:
+        main_menu()
 
 # =======================================================================================================================
 
