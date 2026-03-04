@@ -336,25 +336,25 @@ def show_instructions():
     print("=" * 50)
 
     # Part A: What it does
-    print("\n[A] WHAT IS THIS PROGRAM?")
+    print("\n[A] WHAT IS THIS PROGRAM?")#explains program
     print("    'Gravity Pulls With Curiosity' is a study tool built specifically")
     print("    for Grade 8 students to master Physics. It uses gamified quizzes")
     print("    to help you understand Motion, Force, Energy, and Heat Transfer.")
 
     # Part B: How to use it
-    print("\n[B] HOW TO USE IT:")
+    print("\n[B] HOW TO USE IT:")#explains how to use program
     print("    1. Navigation: Use the numbers [1-5] to select menu options.")
     print("    2. Quizzes: Type the letter (A, B, C, or D) of your answer.")
     print("    3. Scoring: Correct answers give full points. Mistakes have a")
     print("       -0.25 penalty, but you can retry until you get it right!")
 
     # Part C: Menu Meanings
-    print("\n[C] MENU OPTIONS:")
+    print("\n[C] MENU OPTIONS:")#explains the menu options
     print("    [1] Physics Mission: Take premade quizzes based on school quarters.")
     print("    [2] Instructions: Opens this manual.")
     print("    [3] Exit: Safely closes the system.")
 
-    input("\n[ Press Enter to return to the Main Menu ]")
+    input("\n[ Press 1 to return to the Main Menu ]")
 
 # =======================================================================================================================
 
@@ -379,7 +379,7 @@ def main_menu():
     print("\n " + "—" * 38)
 
     choice = input(" Select >> ")
-    return choice  # since choice wasis an input that comes from the function, we must return the value , so that other functions could use it.
+    return choice  # since choice is an input that comes from the function, we must return the value , so that other functions could use it.
 
 
 # --- Execution ---
@@ -390,7 +390,7 @@ if user_choice == "1":
     print("\nLoading the quiz... Good luck!")
     physics_mission()
 elif user_choice == "2":
-    print()
+    print("\nLoading the instructions.")
     show_instructions()
 elif user_choice == "3":
     print("\nPeace out! See you next time.")
