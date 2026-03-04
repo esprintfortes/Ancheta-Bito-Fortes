@@ -166,7 +166,7 @@ def welcome():
 
     for i in welcome_message:
         print(i, end="", flush=True)  # adds a cool typing animation
-        t.sleep(0.001)  # speed of the typing
+        t.sleep(0.01)  # speed of the typing
 
 
 welcome()
@@ -379,7 +379,7 @@ def main_menu():
     print("\n " + "—" * 38)
 
     choice = input(" Select >> ")
-    return choice  # since choice wasis an input that comes from the function, we must return the value , so that other functions could use it.
+    return choice  # since choice was an input that comes from the function, we must return the value , so that other functions could use it.
 
 
 # --- Execution ---
@@ -393,7 +393,10 @@ elif user_choice == "2":
     print()
     show_instructions()
 elif user_choice == "3":
-    print("\nPeace out! See you next time.")
+    goodbye = ("\n Leaving already? Well, I hope you learned and enjoyed Physics in this very cool Python game! See you later!")
+    for i in goodbye:
+        print(i, end="", flush=True)  # adds a cool typing animation
+        t.sleep(0.01)  # speed of the typing
     exit()
 else:
     print()

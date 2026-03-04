@@ -8,7 +8,7 @@ Quarter,Topic,Difficulty,Question,Choice_A,Choice_B,Choice_C,Choice_D,Correct,Ex
 2,Modified T/F,Hard,True or False: A book sitting on a desk is doing work.,True,False,, ,B,False. Work requires displacement; if it's sitting still, work is zero.
 2,Modified T/F,Easy,True or False: The unit for Energy is the Joule.,True,False,, ,A,True. Both Work and Energy are measured in Joules.
 2,Modified T/F,Medium,True or False: Geocentric means Sun-centered.,True,False,, ,B,False. Geocentric means Earth-centered; Heliocentric means Sun-centered.
-2,Modified T/F,Hard,True or False: Kepler's laws supported the Geocentric model.,True,False,, ,B,False. Kepler's laws supported the Heliocentric (Copernican) model.
+2,Modified T/F,Hard,True or False: Kepler's laws supported the Geocentric model.,True,False,,,B,False. Kepler's laws supported the Heliocentric (Copernican) model.
 2,Gravity,Medium,According to the text what happens when mass (m) comes close to mass (M)?,They repel each other,Mass (M) pulls on mass (m),They both disappear,Nothing happens,B,When another object with mass (m) comes close, the first object with mass (M) will pull on it.
 2,Gravity,Hard,What determines the strength and direction of the pull on mass (m)?,The speed of the object,The gravitational field at that spot,The temperature of space,The shape of mass (m),B,The strength and direction of this pull depend on the gravitational field at that spot.
 2,Gravity,Medium,Based on Figure 1 what is the direction of the force (Fg) acting on mass (m)?,Towards mass (M),Away from mass (M),Upwards,To the right,A,As shown in Figure 1b, mass (M) exerts a gravitational force and pulls (m) towards it.
