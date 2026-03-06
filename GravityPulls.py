@@ -9,7 +9,7 @@ Group Members:
 # At your service and ready to lead!
 
 # ( Libraries )
-import json, time as t, csv, random, os
+import json, time as t, csv, random
 
 
 # =======================================================================================================================
@@ -21,8 +21,8 @@ def loading_bar():  # function for the loading bar!
         percent = int((i / bar_length) * 100)  # divides and gets the percentage
         bar = "█" * i + "-" * (bar_length - i)
 
-        # \r moves the cursor to the start of the line,  saw this in google iand it actually helped
-        # end="" prevents a new line, so it doesn't print by columns
+        # \r moves the cursor to the start of the line, i saw this in google iand it actually helped
+        # end="" prevents a new line, so it doesnt print by columns
         print(f"\r[{bar}] {percent}%", end="", flush=True)
 
         t.sleep(0.05)
@@ -133,7 +133,7 @@ for i in range(50):  # for loop to print "--" consecutively 50 times
     print("--", end="")
 for char in message:  # for loop
     print(char, end="", flush=True)  # typing animation
-    t.sleep(0.001)  # speed of the typing
+    t.sleep(0.01)  # speed of the typing
 
 
 # =======================================================================================================================
@@ -166,7 +166,7 @@ def welcome():
 
     for i in welcome_message:
         print(i, end="", flush=True)  # adds a cool typing animation
-        t.sleep(0.01)  # speed of the typing
+        t.sleep(0.001)  # speed of the typing
 
 
 welcome()
@@ -175,12 +175,12 @@ print("\n" * 50)
 # =======================================================================================================================
 
 def physics_mission():
-    # In this def function, the user must complete a quiz, that has questions that vary, if they get it incorrect they lose -0.25,
+    # In this def function, the user must complete a quiz, which has questions that vary; if they get it incorrect, they lose -0.25,
     # and they are still allowed to retake the same question, which keeps repeating.
-    # They choose what quarter they want to learn
+    # They choose which quarter they want to learn
     choices = r'''
-    [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum.)
-    [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation,Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
+    [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum)
+    [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation, Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
                    Conservation of Mechanical Energy, Heat Transfer.)
     [Q3] > Quarter 3 in Progress (True or False, Modified True or False, incoming alongside it.)
    '''
@@ -199,8 +199,6 @@ def physics_mission():
             filename = "physics_q1.csv"
         elif sub_choice == "2":
             filename = "physics_q2.csv"
-        elif sub_choice == "3":
-            filename = "physics_q3.csv"
         else:
             print("\n[!] Input is wrong!. You shall now be./////////. Defaulting to Q2 Mission...")
             filename = "physics_q2.csv"
@@ -208,7 +206,7 @@ def physics_mission():
         with open(filename, mode='r', encoding='utf-8') as file:  # Using encoding='utf-8' ensures your text files...
             reader = csv.DictReader(file)
             questions = list(
-                reader)  # questions, the variable acts as a list so you can see anywhere from the list list, useful for randomize
+                reader)  # questions, the variable acts as a list, so you can see anywhere from the list, useful for randomizing
 
         if not questions:
             print("\n⚠️ Database is empty! Devs, add some questions!.")
@@ -338,38 +336,28 @@ def show_instructions():
     print("=" * 50)
 
     # Part A: What it does
-    print("\n[A] WHAT IS THIS PROGRAM?")
+    print("\n[A] WHAT IS THIS PROGRAM?")#explains program
     print("    'Gravity Pulls With Curiosity' is a study tool built specifically")
     print("    for Grade 8 students to master Physics. It uses gamified quizzes")
     print("    to help you understand Motion, Force, Energy, and Heat Transfer.")
 
     # Part B: How to use it
-    print("\n[B] HOW TO USE IT:")
+    print("\n[B] HOW TO USE IT:")#explains how to use program
     print("    1. Navigation: Use the numbers [1-5] to select menu options.")
     print("    2. Quizzes: Type the letter (A, B, C, or D) of your answer.")
     print("    3. Scoring: Correct answers give full points. Mistakes have a")
     print("       -0.25 penalty, but you can retry until you get it right!")
 
     # Part C: Menu Meanings
-    print("\n[C] MENU OPTIONS:")
+    print("\n[C] MENU OPTIONS:")#explains the menu options
     print("    [1] Physics Mission: Take premade quizzes based on school quarters.")
     print("    [2] Instructions: Opens this manual.")
-    print("    [3] Review Page: Still Building.")
-    print("    [4] Exit: Safely closes the system.")
+    print("    [3] Exit: Safely closes the system.")
 
-
-    input("\n[ Press Enter to return to the Main Menu ]")
+    input("\n[ Press 1 to return to the Main Menu ]")#in progress
 
 # =======================================================================================================================
-def review_page():
-    mess = ("Upcoming Feature!"
-            "Please wait 'till further announcement!"
-            "Version: OS v1.1")
-    for character in message:
-        print(character, end="", flush=True)
-        t.sleep(.001)
-    print("Try another option!")
-    exit()
+
 # =======================================================================================================================
 
 # =======================================================================================================================
@@ -381,9 +369,8 @@ def main_menu():
 
     choices = r'''
     [1] > Launch Physics Mission
-    [2] > Instructions
-    [3] > Review Page
-    [4] > Exit System
+    [2] > Menu/Instructions
+    [3] > Exit System
     '''
     for i in choices:
         print(i, end="", flush=True)
@@ -392,31 +379,24 @@ def main_menu():
     print("\n " + "—" * 38)
 
     choice = input(" Select >> ")
-    return choice  # since choice wasis an input that comes from the function, we must return the value , so that other functions could use it.
+    return choice  # since choice is an input that comes from the function, we must return the value, so that other functions could use it.
 
 
 # --- Execution ---
 user_choice = main_menu()
 
 # Handle the choice
-while user_choice not in["1","2","3","4"]:
-    print("Invalid input!")
-    user_choice = input("Please select a new, valid option.")
-
-
-    if user_choice == "1":
-        print("\nLoading the quiz... Good luck!")
-        physics_mission()
-    elif user_choice == "2":
-        print()
-        show_instructions()
-    elif user_choice == "3":
-        review_page()
-    elif user_choice == "4":
-        print("\nPeace out! See you next time.")
-        exit()
-    else:
-        main_menu()
+if user_choice == "1":
+    print("\nLoading the quiz... Good luck!")
+    physics_mission()
+elif user_choice == "2":
+    print("\nLoading the instructions.")
+    show_instructions()
+elif user_choice == "3":
+    print("\nPeace out! See you next time.")
+    exit()
+else:
+    print()
 
 # =======================================================================================================================
 
@@ -425,7 +405,7 @@ while user_choice not in["1","2","3","4"]:
 '''
 References:
 Text to ASCII Art Generator (TAAG). (n.d.). https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type+Something+&x=none&v=4&h=4&w=80&we=false
-Self Taught Videos for Coding:
+Self-Taught Videos for Coding:
 macmostvideo. (2023, April 10). Understanding CSV files [Video]. YouTube. https://www.youtube.com/watch?v=UofTplCVkYI
 Google Search. (n.d.). https://www.google.com/search?q=how+to+use+csv+notes&sca_esv=d6eb6bac57f34326&rlz=1C1BNSD_enPH1082PH1082&sxsrf=ANbL-n7Dbhx7sAttp9fJN5TlTFq4hw5Iyg%3A1771314944412&ei=AB-UafjtGIXR0-kPze_CUQ&biw=1365&bih=683&ved=0ahUKEwj47a-whuCSAxWF6DQHHc23MAoQ4dUDCBM&uact=5&oq=how+to+use+csv+notes&gs_lp=Egxnd3Mtd2l6LXNlcnAiFGhvdyB0byB1c2UgY3N2IG5vdGVzMgYQABgWGB4yCBAAGBYYChgeMgYQABgWGB4yBhAAGBYYHjIIEAAYFhgKGB4yBhAAGBYYHjIGEAAYFhgeMgsQABiABBiGAxiKBTILEAAYgAQYhgMYigUyCxAAGIAEGIYDGIoFSLwWULULWMEVcAF4AZABAJgBswGgAcoGqgEDMC41uAEDyAEA-AEBmAIGoAKJB8ICChAAGLADGNYEGEfCAgsQABiABBiRAhiKBcICChAAGIAEGBQYhwLCAgUQABiABJgDAIgGAZAGCJIHAzEuNaAH6yeyBwMwLjW4B4IHwgcFMi0zLjPIBzSACAA&sclient=gws-wiz-serp
 '''
