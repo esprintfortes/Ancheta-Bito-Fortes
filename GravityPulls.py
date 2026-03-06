@@ -42,7 +42,7 @@ robot = r'''
 # Loop through the string and print each line with a delay
 for line in robot.split('\n'): # used .split to split the string!
     print(line)
-    t.sleep(0.03)
+    t.sleep(0.3)
 
 
 # ======================================================================================================================
@@ -73,7 +73,7 @@ setup = r'''
 
 for i in setup:
     print(i, end="", flush=True)
-    t.sleep(0.2)
+    t.sleep(0.05)
 t.sleep(0.3)
 t.sleep(0.6)
 print("\n If you have an existing account: [1] Log In"
@@ -81,8 +81,15 @@ print("\n If you have an existing account: [1] Log In"
       "\n\n [1] / [2]")
 t.sleep(0.8)
 authentication = input(" >> ")
-username = input(" Name: ").lower()
-passw = input("Password: ")
+while authentication not in ["1","2"]:
+    print("\n If you have an existing account: [1] Log In"
+          "\n If you are brand new: [2] Sign Up"
+          "\n\n [1] / [2]")
+    authentication = input(" >> ")
+
+if authentication == "1":
+    username = input(" Name: ").lower()
+    passw = input("Password: ").lower()
 
 if authentication == "2":
     update_data(username, passw, signup=True)
@@ -95,9 +102,10 @@ else:
     if not account or account.get("password") != passw:
         print("Wrong login, restart the program, try again.")
         exit()
-
-t.sleep(.5)
-print(f"\n\nLogin Successful! Welcome {username}.")
+log_in_message = "Login Successful!"
+for i in log_in_message:
+    print(i, end="", flush=True)
+    t.sleep(.1)
 
 # ======================================================================================================================
 t.sleep(.5)
@@ -120,6 +128,7 @@ try:
     print("\n" * 20)
     t.sleep(2)
     print(data["ascii_art"])  # prints the specific part of the data
+
 except FileNotFoundError:
     print("Error: The file 'data.json' was not found.")
 except json.JSONDecodeError as e:
@@ -129,11 +138,11 @@ except json.JSONDecodeError as e:
 # Subtitle Printing
 message = "     With Curiosity."
 for i in range(50):  # for loop to print "--" consecutively 50 times
-    t.sleep(.2)
-    print("--", end="")
+    t.sleep(.002)
+    print("-", end="")
 for char in message:  # for loop
     print(char, end="", flush=True)  # typing animation
-    t.sleep(0.01)  # speed of the typing
+    t.sleep(0.1)  # speed of the typing
 
 
 # =======================================================================================================================
@@ -166,8 +175,8 @@ def welcome():
 
     for i in welcome_message:
         print(i, end="", flush=True)  # adds a cool typing animation
-        t.sleep(0.001)  # speed of the typing
-
+        t.sleep(0.01)  # speed of the typing
+    t.sleep(5)
 
 welcome()
 print("\n" * 50)
@@ -182,7 +191,8 @@ def physics_mission():
     [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum)
     [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation, Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
                    Conservation of Mechanical Energy, Heat Transfer.)
-    [Q3] > Quarter 3 in Progress (True or False, Modified True or False, incoming alongside it.)
+    [Q3] > Quarter 3 in Progress (Introduction to Waves, Characteristic Behaviors of Waves, Sound as a Wave and the Physics of Echolocation, 
+    Historical Development of Ideas about Light, Colors, Wave Nature of Light, Electromagnetic Wave)
    '''
     #
     print()
@@ -192,15 +202,17 @@ def physics_mission():
         t.sleep(0.01)  # speed of the typing
 
     try:
-        sub_choice = input("\nSelect Mission [1-2]: ").strip()
+        sub_choice = input("\nSelect Mission [1-3]: ").strip()
 
         # Determine what csv file is needed, through the quarter choosing
         if sub_choice == "1":
             filename = "physics_q1.csv"
         elif sub_choice == "2":
             filename = "physics_q2.csv"
+        elif sub_choice == "3":
+            filename = "physics_q3.csv"
         else:
-            print("\n[!] Input is wrong!. You shall now be./////////. Defaulting to Q2 Mission...")
+            print("\n[!] Input is wrong!. Defaulting to Q2 Mission...")
             filename = "physics_q2.csv"
 
         with open(filename, mode='r', encoding='utf-8') as file:  # Using encoding='utf-8' ensures your text files...
@@ -331,33 +343,43 @@ def physics_mission():
 # Instructions/Menu Function
 def show_instructions():
     """Explains what the program does, how to use it, and menu options."""
-    print("\n" + "=" * 50)
-    print("      📜 PROGRAM INSTRUCTIONS & MANUAL 📜")
-    print("=" * 50)
+    instructions = r'''
+   📜 PROGRAM INSTRUCTIONS & MANUAL 📜
 
-    # Part A: What it does
-    print("\n[A] WHAT IS THIS PROGRAM?")#explains program
-    print("    'Gravity Pulls With Curiosity' is a study tool built specifically")
-    print("    for Grade 8 students to master Physics. It uses gamified quizzes")
-    print("    to help you understand Motion, Force, Energy, and Heat Transfer.")
+    [Part A: What it does]
+    
+WHAT IS THIS PROGRAM?
+    'Gravity Pulls With Curiosity' is a study tool built specifically
+    for Grade 8 students to master Physics. It uses gamified quizzes
+    to help you understand Motion, Force, Energy, and Heat Transfer.
 
-    # Part B: How to use it
-    print("\n[B] HOW TO USE IT:")#explains how to use program
-    print("    1. Navigation: Use the numbers [1-5] to select menu options.")
-    print("    2. Quizzes: Type the letter (A, B, C, or D) of your answer.")
-    print("    3. Scoring: Correct answers give full points. Mistakes have a")
-    print("       -0.25 penalty, but you can retry until you get it right!")
+    [Part B: How to use it]
+   HOW TO USE IT:
+   1. Navigation: Use the numbers [1-3] to select menu options.
+   2. Quizzes: Type the letter (A, B, C, or D) of your answer.
+   3. Scoring: Correct answers give full points. Mistakes have a -0.25 penalty, but you can retry until you get it right!
 
     # Part C: Menu Meanings
-    print("\n[C] MENU OPTIONS:")#explains the menu options
-    print("    [1] Physics Mission: Take premade quizzes based on school quarters.")
-    print("    [2] Instructions: Opens this manual.")
-    print("    [3] Exit: Safely closes the system.")
+    MENU OPTIONS:
+    [1] Physics Mission: Take premade quizzes based on school quarters.
+    [2] Instructions: Opens this manual.
+    [3] Exit: Safely closes the system.
+    
+    '''
 
-    input("\n[ Press 1 to return to the Main Menu ]")#in progress
+    for i in instructions:
+        print(i, end="", flush=True)
+        t.sleep(0.01)
 
+    t.sleep(6.7)
 # =======================================================================================================================
-
+def exit_mesage():
+    exit_message = r'''
+    Come back next time! As your fellow devs and fellow schoolmates, we entrust you to comeback for a brighter day and a better physics grade'''
+    for i in exit_message:
+        print(i, end="", flush=True)
+        t.sleep(.1)
+    exit()
 # =======================================================================================================================
 
 # =======================================================================================================================
@@ -386,14 +408,35 @@ def main_menu():
 user_choice = main_menu()
 
 # Handle the choice
+while user_choice not in ["1", "2", "3"]:
+    user_choice = main_menu()
+
 if user_choice == "1":
     print("\nLoading the quiz... Good luck!")
     physics_mission()
 elif user_choice == "2":
     print("\nLoading the instructions.")
     show_instructions()
+    print("\n"*30)
+    user_choice = main_menu()
+    while user_choice not in ["1", "2", "3"]:
+        user_choice = main_menu()
+
+    if user_choice == "1":
+        print("\nLoading the quiz... Good luck!")
+        physics_mission()
+    elif user_choice == "2":
+        print("\nLoading the instructions.")
+        show_instructions()
+        print("\n" * 30)
+        user_choice = main_menu()
+
+    elif user_choice == "3":
+        exit_mesage()
+        exit()
+
 elif user_choice == "3":
-    print("\nPeace out! See you next time.")
+    exit_mesage()
     exit()
 else:
     print()
