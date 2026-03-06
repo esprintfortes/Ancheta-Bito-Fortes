@@ -175,12 +175,12 @@ print("\n" * 50)
 # =======================================================================================================================
 
 def physics_mission():
-    # In this def function, the user must complete a quiz, that has questions that vary, if they get it incorrect they lose -0.25,
+    # In this def function, the user must complete a quiz, which has questions that vary; if they get it incorrect, they lose -0.25,
     # and they are still allowed to retake the same question, which keeps repeating.
-    # They choose what quarter they want to learn
+    # They choose which quarter they want to learn
     choices = r'''
-    [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum.)
-    [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation,Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
+    [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum)
+    [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation, Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
                    Conservation of Mechanical Energy, Heat Transfer.)
     [Q3] > Quarter 3 in Progress (True or False, Modified True or False, incoming alongside it.)
    '''
@@ -206,7 +206,7 @@ def physics_mission():
         with open(filename, mode='r', encoding='utf-8') as file:  # Using encoding='utf-8' ensures your text files...
             reader = csv.DictReader(file)
             questions = list(
-                reader)  # questions, the variable acts as a list so you can see anywhere from the list list, useful for randomize
+                reader)  # questions, the variable acts as a list, so you can see anywhere from the list, useful for randomizing
 
         if not questions:
             print("\n⚠️ Database is empty! Devs, add some questions!.")
@@ -379,7 +379,7 @@ def main_menu():
     print("\n " + "—" * 38)
 
     choice = input(" Select >> ")
-    return choice  # since choice is an input that comes from the function, we must return the value , so that other functions could use it.
+    return choice  # since choice is an input that comes from the function, we must return the value, so that other functions could use it.
 
 
 # --- Execution ---
@@ -405,7 +405,7 @@ else:
 '''
 References:
 Text to ASCII Art Generator (TAAG). (n.d.). https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type+Something+&x=none&v=4&h=4&w=80&we=false
-Self Taught Videos for Coding:
+Self-Taught Videos for Coding:
 macmostvideo. (2023, April 10). Understanding CSV files [Video]. YouTube. https://www.youtube.com/watch?v=UofTplCVkYI
 Google Search. (n.d.). https://www.google.com/search?q=how+to+use+csv+notes&sca_esv=d6eb6bac57f34326&rlz=1C1BNSD_enPH1082PH1082&sxsrf=ANbL-n7Dbhx7sAttp9fJN5TlTFq4hw5Iyg%3A1771314944412&ei=AB-UafjtGIXR0-kPze_CUQ&biw=1365&bih=683&ved=0ahUKEwj47a-whuCSAxWF6DQHHc23MAoQ4dUDCBM&uact=5&oq=how+to+use+csv+notes&gs_lp=Egxnd3Mtd2l6LXNlcnAiFGhvdyB0byB1c2UgY3N2IG5vdGVzMgYQABgWGB4yCBAAGBYYChgeMgYQABgWGB4yBhAAGBYYHjIIEAAYFhgKGB4yBhAAGBYYHjIGEAAYFhgeMgsQABiABBiGAxiKBTILEAAYgAQYhgMYigUyCxAAGIAEGIYDGIoFSLwWULULWMEVcAF4AZABAJgBswGgAcoGqgEDMC41uAEDyAEA-AEBmAIGoAKJB8ICChAAGLADGNYEGEfCAgsQABiABBiRAhiKBcICChAAGIAEGBQYhwLCAgUQABiABJgDAIgGAZAGCJIHAzEuNaAH6yeyBwMwLjW4B4IHwgcFMi0zLjPIBzSACAA&sclient=gws-wiz-serp
 '''
