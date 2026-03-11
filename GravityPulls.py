@@ -166,7 +166,7 @@ def welcome():
 
     for i in welcome_message:
         print(i, end="", flush=True)  # adds a cool typing animation
-        t.sleep(0.001)  # speed of the typing
+        t.sleep(0.1)  # speed of the typing
 
 
 welcome()
