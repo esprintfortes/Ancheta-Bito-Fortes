@@ -10,9 +10,22 @@ Group Members:
 
 # ( Libraries )
 import json, time as t, csv, random
+# ======================================================================================================================
+# Cool Watermark! Got this from Viktoria's initial loading screen!
+robot = r''' 
+  /¯\     /¯\ 
+ /   \    /  \    Fortes, Edgar   
+<   |¯|    |¯| >  Bito, Seth
+<   |_|  W |_| >  Ancheta, Viktoria
+     |     |
+'''
 
-
-# =======================================================================================================================
+# Loop through the string and print each line with a delay
+for line in robot.split('\n'): # used .split to split the string!
+    print(line)
+    t.sleep(0.3)
+# ======================================================================================================================
+#=======================================================================================================================
 # Loading screen
 def loading_bar():  # function for the loading bar!
     print("\n--- INITIALIZING ENGINE ---")  # THIS IS SO COOL
@@ -27,26 +40,88 @@ def loading_bar():  # function for the loading bar!
 
         t.sleep(0.05)
 
-    print("\n\nSYSTEM READY. PREPARE FOR LIFTOFF.\n")  # Double \n\n
+    lift_off_message = r'''
+    SYSTEM READY. PREPARE FOR LIFTOFF.
+    '''
 
+    for i in lift_off_message:
+        print(i, end="", flush=True)
+        t.sleep(0.01)
+    t.sleep(0.8)
 
-# Cool Watermark! Got this from Viktoria's initial loading screen!
-robot = r''' 
-  /¯\     /¯\ 
- /   \    /  \    Fortes, Edgar   
-<   |¯|    |¯| >  Bito, Seth
-<   |_|  W |_| >  Ancheta, Viktoria
-     |     |
-'''
-
-# Loop through the string and print each line with a delay
-for line in robot.split('\n'): # used .split to split the string!
-    print(line)
-    t.sleep(0.3)
-
-
+t.sleep(.5)
+loading_bar()  # loads the loading bar animation after the watermark
+#=======================================================================================================================
 # ======================================================================================================================
+# This is the banner printer ot the title screen zone!
+# This area prints an ascii art of "Gravity Pulls"
+# (Text to ASCII Art Generator (TAAG), n.d.)
+try:
+    print()
+    filename = "banner.json"
+    with open(filename, "r") as file:  # got this from past codes
+        # Loads the JSON data from the file
+        data = json.load(file)
+    # prints the data here
+    for i in range(30):
+        print("\n")
+        t.sleep(.1)
+    print(data["ascii_art"])  # prints the specific part of the data
 
+except FileNotFoundError:
+    print("Error: The file 'data.json' was not found.")
+
+except json.JSONDecodeError as e:
+    print(f"Failed to decode JSON: {e}")
+#=======================================================================================================================
+# =======================================================================================================================
+# Subtitle Printing
+message = "     With Curiosity."
+for i in range(50):  # for loop to print "--" consecutively 50 times
+    t.sleep(.002)
+    print("-", end="")
+
+
+for char in message:  # for loop
+    print(char, end="", flush=True)  # typing animation
+    t.sleep(0.1)  # speed of the typing
+def welcome():
+    # welcome message
+    welcome_message = r''' 
+       ✨ TEAM CURIOSITY HQ ✨
+       -----------------------
+       Yo! Edgar here (aka your dev). 
+       We're about to make physics actually help you guys... Trust. 
+
+       If the code starts acting up, 
+       call the CEO (that's me btw).
+
+       LETS DOOOOOOOOOOO IT. 🚀  
+
+       This is Seth here (your 2nd dev).
+       Are you ready for a fun physics journey?
+
+       Make sure to take your time and enjoy.
+       Good luck!
+
+       Sup! This is Viktoria here (your 3rd dev)
+       I hope you enjoy our cool physics code! 
+       And probably, you can get a good score on your LTs instead of a 12/30.
+
+       Have fun!!!
+    '''
+
+    for i in welcome_message:
+        print(i, end="", flush=True)  # adds a cool typing animation
+        t.sleep(0.01)  # speed of the typing
+    t.sleep(5)
+
+
+welcome()
+for i in range(30):
+    print("\n")
+    t.sleep(0.1)
+#=======================================================================================================================
 # Authentication system for the leaderboard
 def update_data(name, password=None, score=0, signup=False):
     # Log in or Sign Up
@@ -64,37 +139,59 @@ def update_data(name, password=None, score=0, signup=False):
         json.dump(data, f)
     return data.get(name)
 
-print("Welcome!")
-print("------ AUTHENTICATION FIRST ------")
+#log in/ sign up functions
 setup = r'''
-[1] >> Log In
-[2] >> Sign Up
+            ------ AUTHENTICATION FIRST ------
+            [1] >> Log In 
+            [2] >> Sign Up
+            
+'''
+log_in_message = r'''
+    If you have an existing account: [1] Log In
+    If you are brand new: [2] Sign Up
+    [1] / [2]
+
+
+    Type [1] to Sign In
+    or 
+    Type [2] to Sign Up
+
+    in the text box below!
+
+'''
+creation_message = r'''
+    Your account has been created! 
+    Please proceed to the code!
 '''
 
 for i in setup:
     print(i, end="", flush=True)
     t.sleep(0.05)
 t.sleep(0.3)
-t.sleep(0.6)
-print("\n If you have an existing account: [1] Log In"
-      "\n If you are brand new: [2] Sign Up"
-      "\n\n [1] / [2]")
+for i in log_in_message:
+    print(i, end="", flush=True)
+    t.sleep(0.01)
 t.sleep(0.8)
-authentication = input(" >> ")
-while authentication not in ["1","2"]:
-    print("\n If you have an existing account: [1] Log In"
-          "\n If you are brand new: [2] Sign Up"
-          "\n\n [1] / [2]")
-    authentication = input(" >> ")
+# authentication input
+authentication = int(input(" >> ")) #authentication in order to make sure account is secure
 
-if authentication == "1":
+while authentication not in [1,2]:
+    for i in log_in_message:
+        print(i, end="", flush=True)
+        t.sleep(0.01)
+    authentication = int(input(" >> "))
+
+if authentication == 1:
     username = input(" Name: ").lower()
     passw = input("Password: ").lower()
 
-if authentication == "2":
+if authentication == 2:
     update_data(username, passw, signup=True)
-    t.sleep(.4)
-    print("Account created.")
+
+    for i in creation_message:
+        print(i, end="", flush=True)
+        t.sleep(0.01)
+
     # Important: reload account data so the rest of the script can use it
     account = update_data(username)
 else:
@@ -102,85 +199,16 @@ else:
     if not account or account.get("password") != passw:
         print("Wrong login, restart the program, try again.")
         exit()
-log_in_message = "Login Successful!"
-for i in log_in_message:
+
+loginMessage = "Login Successful!"
+for i in loginMessage:
     print(i, end="", flush=True)
     t.sleep(.1)
 
+
 # ======================================================================================================================
-t.sleep(.5)
-print("\n" * 50)
-loading_bar()  # loads the loading bar animation after the watermark
-
-# =======================================================================================================================
-# This is the banner printer ot the title screen zone!
-# This area prints an ascii art of "Gravity Pulls"
-# (Text to ASCII Art Generator (TAAG), n.d.)
-try:
-    print("\n" * 10)
-    t.sleep(.5)
-    filename = "banner.json"
-    with open(filename, "r") as file:  # got this from past codes
-        # Loads the JSON data from the file
-        data = json.load(file)
-    # prints the data here
-    t.sleep(.5)
-    print("\n" * 20)
-    t.sleep(2)
-    print(data["ascii_art"])  # prints the specific part of the data
-
-except FileNotFoundError:
-    print("Error: The file 'data.json' was not found.")
-except json.JSONDecodeError as e:
-    print(f"Failed to decode JSON: {e}")
-
-# =======================================================================================================================
-# Subtitle Printing
-message = "     With Curiosity."
-for i in range(50):  # for loop to print "--" consecutively 50 times
-    t.sleep(.002)
-    print("-", end="")
-for char in message:  # for loop
-    print(char, end="", flush=True)  # typing animation
-    t.sleep(0.1)  # speed of the typing
-
-
-# =======================================================================================================================
 # ======================================================================================================================
-def welcome():
-    # welcome message
-    welcome_message = r''' 
-       ✨ TEAM CURIOSITY HQ ✨
-       -----------------------
-       Yo! Edgar here (aka your dev). 
-       We're about to make physics actually help you guys... Trust. 
-
-       If the code starts acting up, 
-       call the CEO (that's me btw).
-
-       LETS DOOOOOOOOOOO IT. 🚀  
-       
-       This is Seth here (your 2nd dev).
-       Are you ready for a fun physics journey?
-       
-       Make sure to take your time and enjoy.
-       Good luck!
-       
-       Sup! This is Viktoria here (your 3rd dev)
-       I hope you enjoy our cool physics code! 
-       And probably, you can get a good score on your LTs instead of a 12/30.
-       
-       Have fun!!!
-    '''
-
-    for i in welcome_message:
-        print(i, end="", flush=True)  # adds a cool typing animation
-        t.sleep(0.01)  # speed of the typing
-    t.sleep(5)
-
-welcome()
-print("\n" * 50)
-
+# =======================================================================================================================
 # =======================================================================================================================
 
 def physics_mission():
@@ -196,7 +224,7 @@ def physics_mission():
    '''
     #
     print()
-    print("\n" + "--- SELECT WHAT QUARTER YOU NEED ---".center(50))  # eme
+    print("\n" + "--- SELECT WHAT QUARTER YOU DESIRE ---".center(50))  # eme
     for i in choices:
         print(i, end="", flush=True)
         t.sleep(0.01)  # speed of the typing
@@ -212,8 +240,8 @@ def physics_mission():
         elif sub_choice == "3":
             filename = "physics_q3.csv"
         else:
-            print("\n[!] Input is wrong!. Defaulting to Q2 Mission...")
-            filename = "physics_q2.csv"
+            print("\n[!] Input is wrong!. Defaulting to Q1 Mission...")
+            filename = "physics_q1.csv"
 
         with open(filename, mode='r', encoding='utf-8') as file:  # Using encoding='utf-8' ensures your text files...
             reader = csv.DictReader(file)
@@ -312,6 +340,7 @@ def physics_mission():
                 else:
                     current_val -= 0.25  # Apply penalty
                     if current_val > 0:
+                        question = q['Question']
                         print(f"❌ Incorrect. Penalty: -0.25. Potential now: {current_val}")
                         print("You can do it! Just think outside the box! !")
                     else:
@@ -319,6 +348,7 @@ def physics_mission():
                         if q.get('Explanation'):
                             print(f"📖 Explanation: {q['Explanation']}")
                         # The loop ends because current_val is no longer > 0
+
 
         # ===============================================================================================================
 
@@ -337,11 +367,16 @@ def physics_mission():
         print(f"\n[⚠️] UNKNOWN GLITCH: {e}")
 
 
-# =======================================================================================================================
-
-# =======================================================================================================================
+# ======================================================================================================================
+def review_page():
+    print()
+# ======================================================================================================================
 # Instructions/Menu Function
 def show_instructions():
+    for i in range(20):
+        print("\n")
+        t.sleep(0.1)
+
     """Explains what the program does, how to use it, and menu options."""
     instructions = r'''
    📜 PROGRAM INSTRUCTIONS & MANUAL 📜
@@ -372,8 +407,9 @@ WHAT IS THIS PROGRAM?
         t.sleep(0.01)
 
     t.sleep(6.7)
+
 # =======================================================================================================================
-def exit_mesage():
+def exit_message(): #exit message is printed if you want to exit the code instead of continuing.
     exit_message = r'''
     Come back next time! As your fellow devs and fellow schoolmates, we entrust you to comeback for a brighter day and a better physics grade'''
     for i in exit_message:
@@ -403,7 +439,7 @@ def main_menu():
     choice = input(" Select >> ")
     return choice  # since choice is an input that comes from the function, we must return the value, so that other functions could use it.
 
-
+#============================================================================================================================================
 # --- Execution ---
 user_choice = main_menu()
 
@@ -432,14 +468,15 @@ elif user_choice == "2":
         user_choice = main_menu()
 
     elif user_choice == "3":
-        exit_mesage()
+        exit_message()
         exit()
 
 elif user_choice == "3":
-    exit_mesage()
+    exit_message()
     exit()
 else:
     print()
+
 
 # =======================================================================================================================
 
