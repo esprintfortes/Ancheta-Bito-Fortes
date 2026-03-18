@@ -169,18 +169,31 @@ for i in setup:
     print(i, end="", flush=True)
     t.sleep(0.05)
 t.sleep(0.3)
+
+
 for i in log_in_message:
     print(i, end="", flush=True)
     t.sleep(0.01)
+    # authentication input
+authentication = int(input(" >> "))  # authentication in order to make sure account is secure
 t.sleep(0.8)
-# authentication input
-authentication = int(input(" >> ")) #authentication in order to make sure account is secure
 
 while authentication not in [1,2]:
-    for i in log_in_message:
-        print(i, end="", flush=True)
-        t.sleep(0.01)
-    authentication = int(input(" >> "))
+    try:
+        for i in log_in_message:
+            print(i, end="", flush=True)
+            t.sleep(0.01)
+            # authentication input
+        authentication = int(input(" >> "))  # authentication in order to make sure account is secure
+        t.sleep(0.8)
+
+    except:
+        for i in log_in_message:
+            print(i, end="", flush=True)
+            t.sleep(0.01)
+            # authentication input
+        authentication = int(input(" >> "))  # authentication in order to make sure account is secure
+        t.sleep(0.8)
 
 if authentication == 1:
     username = input(" Name: ").lower()
@@ -189,7 +202,6 @@ if authentication == 1:
 if authentication == 2:
     username = input(" Name: ").lower()
     passw = input("Password: ").lower()
-
     update_data(username, passw, signup=True)
 
     for i in creation_message:
@@ -200,9 +212,18 @@ if authentication == 2:
     account = update_data(username)
 else:
     account = update_data(username, passw)
-    if not account or account.get("password") != passw:
-        print("Wrong login, restart the program, try again.")
-        exit()
+    while not account or account.get("password") != passw:
+        print("Wrong login, try again.")
+        if not account or account.get("password") != passw:
+            username = input(" Name: ").lower()
+            passw = input("Password: ").lower()
+        else:
+            break
+
+
+
+
+
 
 loginMessage = "Login Successful!"
 for i in loginMessage:
@@ -469,7 +490,9 @@ elif user_choice == "2":
         print("\nLoading the instructions.")
         show_instructions()
         print("\n" * 30)
-        user_choice = main_menu()
+        while user_choice not in ["2"]:
+            user_choice = main_menu()
+
 
     elif user_choice == "3":
         exit_message()
