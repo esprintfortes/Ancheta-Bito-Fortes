@@ -128,6 +128,7 @@ def update_data(name, password=None, score=0, signup=False):
     try:
         with open("users.json", "r") as f:
             data = json.load(f)
+
     except:
         data = {}
     if signup:
@@ -186,6 +187,9 @@ if authentication == 1:
     passw = input("Password: ").lower()
 
 if authentication == 2:
+    username = input(" Name: ").lower()
+    passw = input("Password: ").lower()
+
     update_data(username, passw, signup=True)
 
     for i in creation_message:
