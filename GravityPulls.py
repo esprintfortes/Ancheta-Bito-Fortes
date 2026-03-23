@@ -136,8 +136,8 @@ def update_data(name, password=None, score=0, signup=False):
     elif name in data:
         data[name]["score"] += score
 
-    with open("users.json", "w") as f:
-        json.dump(data, f)
+    with open("users.json", "w") as users:
+        json.dump(data, users)
     return data.get(name)
 
 #log in/ sign up functions
@@ -198,7 +198,7 @@ while authentication not in [1,2]:
 if authentication == 1:
     username = input(" Name: ").lower()
     passw = input("Password: ").lower()
-
+    account = update_data(username)
 if authentication == 2:
     username = input(" Name: ").lower()
     passw = input("Password: ").lower()
@@ -211,19 +211,17 @@ if authentication == 2:
     # Important: reload account data so the rest of the script can use it
     account = update_data(username)
 else:
-    account = update_data(username, passw)
-    while not account or account.get("password") != passw:
-        print("Wrong login, try again.")
-        if not account or account.get("password") != passw:
-            username = input(" Name: ").lower()
-            passw = input("Password: ").lower()
+    while True:
+        username = input("Name: ").lower()
+        passw = input("Password: ").lower()
+
+        account = username # Attempt to retrieve account data
+
+        if account and account.get("password") == passw:
+            print("Login successful.")
+            break  # Exit the loop upon successful login
         else:
-            break
-
-
-
-
-
+            print("Wrong login, try again.")
 
 loginMessage = "Login Successful!"
 for i in loginMessage:
@@ -244,8 +242,10 @@ def physics_mission():
     [Q1] > Quarter 1 (Motion, Kinematics, Force, Newton's Laws, Impulse and Momentum, Conservation of Momentum)
     [Q2] > Quarter 2 (Historical Development of the Universal Law of Gravitation, Gravitational Force, Field, and Potential Energy, Acceleration due to Gravity,
                    Conservation of Mechanical Energy, Heat Transfer.)
-    [Q3] > Quarter 3 in Progress (Introduction to Waves, Characteristic Behaviors of Waves, Sound as a Wave and the Physics of Echolocation, 
-    Historical Development of Ideas about Light, Colors, Wave Nature of Light, Electromagnetic Wave)
+    [Q3] > Quarter 3 (Introduction to Waves, Characteristic Behaviors of Waves, Sound as a Wave and the Physics of Echolocation, 
+                   Historical Development of Ideas about Light, Colors, Wave Nature of Light, Electromagnetic Wave)
+    [Q4] > Quarter 4 in Progress (Historical Development & Application of Electricity and Magnetism, Electric Charge & Charging Methods, 
+                   Problem Solving in Coulomb’s Law, Voltage, Current, and Resistance, Electromagnetism, and Electrical Safety)
    '''
     #
     print()
@@ -255,7 +255,7 @@ def physics_mission():
         t.sleep(0.01)  # speed of the typing
 
     try:
-        sub_choice = input("\nSelect Mission [1-3]: ").strip()
+        sub_choice = input("\nSelect Mission [1-4]: ").strip()
 
         # Determine what csv file is needed, through the quarter choosing
         if sub_choice == "1":
@@ -264,6 +264,8 @@ def physics_mission():
             filename = "physics_q2.csv"
         elif sub_choice == "3":
             filename = "physics_q3.csv"
+        elif sub_choice == "4":
+            filename = "physics_q4.csv"
         else:
             print("\n[!] Input is wrong!. Defaulting to Q1 Mission...")
             filename = "physics_q1.csv"
@@ -434,7 +436,7 @@ WHAT IS THIS PROGRAM?
     t.sleep(6.7)
 
 # =======================================================================================================================
-def exit_message(): #exit message is printed if you want to exit the code instead of continuing.
+def exitMessage(): #exit message is printed if you want to exit the code instead of continuing.
     exit_message = r'''
     Come back next time! As your fellow devs and fellow schoolmates, we entrust you to comeback for a brighter day and a better physics grade'''
     for i in exit_message:
@@ -446,9 +448,11 @@ def exit_message(): #exit message is printed if you want to exit the code instea
 # =======================================================================================================================
 def main_menu():
     # main menu!
-    print(" ╔════════════════════════════════════╗")
-    print(" ║       TEAM CURIOSITY : OS v1.0     ║")
-    print(" ╚════════════════════════════════════╝")
+    print('''  
+        ╔════════════════════════════════════╗
+        ║       TEAM CURIOSITY : OS v1.0     ║
+        ╚════════════════════════════════════╝
+        ''')
 
     choices = r'''
     [1] > Launch Physics Mission
@@ -495,11 +499,11 @@ elif user_choice == "2":
 
 
     elif user_choice == "3":
-        exit_message()
+        exitMessage()
         exit()
 
 elif user_choice == "3":
-    exit_message()
+    exitMessage()
     exit()
 else:
     print()
