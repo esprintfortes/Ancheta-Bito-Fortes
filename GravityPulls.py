@@ -444,6 +444,10 @@ def exitMessage(): #exit message is printed if you want to exit the code instead
         t.sleep(.1)
     exit()
 # =======================================================================================================================
+def return_to_menu():
+    print("\n" + "—" * 38)
+    input("Mission complete! Press [ENTER] to return to HQ...")
+    print("\n" * 30) # "Clears" the screen for a clear menu
 
 # =======================================================================================================================
 def main_menu():
@@ -470,45 +474,31 @@ def main_menu():
 
 #============================================================================================================================================
 # --- Execution ---
-user_choice = main_menu()
-
-# Handle the choice
-while user_choice not in ["1", "2", "3"]:
+while True:
     user_choice = main_menu()
-
-if user_choice == "1":
-    print("\nLoading the quiz... Good luck!")
-    physics_mission()
-elif user_choice == "2":
-    print("\nLoading the instructions.")
-    show_instructions()
-    print("\n"*30)
-    user_choice = main_menu()
-    while user_choice not in ["1", "2", "3"]:
-        user_choice = main_menu()
-
+# Handle the choice  ==============================================================================================================
+# Using a single loop ensures the user can keep choosing options until they hit option '3'
     if user_choice == "1":
-        print("\nLoading the quiz... Good luck!")
+        print("\n🚀 Launching Physics Mission...")
         physics_mission()
-    elif user_choice == "2":
-        print("\nLoading the instructions.")
-        show_instructions()
-        print("\n" * 30)
-        while user_choice not in ["2"]:
-            user_choice = main_menu()
+        # After the mission, ask to continue
+        return_to_menu()
 
+    elif user_choice == "2":
+        print("\n📖 Opening Instructions...")
+        show_instructions()
+        # After reading, ask to continue
+        return_to_menu()
 
     elif user_choice == "3":
+        # Exit the program
         exitMessage()
-        exit()
+        break  # This is the ONLY way to stop the loop
 
-elif user_choice == "3":
-    exitMessage()
-    exit()
-else:
-    print()
-
-
+    else:
+        # Handle typos/wrong inputs
+        print("\n[!] Invalid selection. Please choose 1, 2, or 3.")
+        t.sleep(1)
 # =======================================================================================================================
 
 # =======================================================================================================================
