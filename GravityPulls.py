@@ -28,11 +28,23 @@ for line in robot.split('\n'):  # used .split to split the string!
 
 
 # ======================================================================================================================
-# =======================================================================================================================
-def loading_bar():  # function for the loading bar!
-    # Centering the title based on an 80-character terminal width
-    print("\n" + "─── INITIALIZING ENGINE ───".center(160))
+def get_facts():
+    # In this part Edgar integrated a random physics fact that prints during the loading bar animation, just like MLBB.
+    # I was scrolling on TikTok then I thought of the IDEA!
+    try:
+        with open("random_facts.json","r") as f:
+            facts = json.load(f)
+            return random.choice(facts["physics_facts"]) # randomizes which fact is going to be printed in
 
+    except (FileNotFoundError,json.JSONDecodeError):
+        return ("Gravity is what keeps our feet on the ground! "
+                "(The Fact file missing)")
+# =======================================================================================================================
+def loading_bar():
+    fact = get_facts() # gets the returned fact
+
+    print("\n" * 2)
+    print("─── INITIALIZING ENGINE ───".center(160))
     bar_length = 40  # Bar length
     padding = " " * 56
 
@@ -45,7 +57,12 @@ def loading_bar():  # function for the loading bar!
         print(f"\r{padding}[{bar}] {percent}%", end="", flush=True)
 
         t.sleep(0.05)
+    print()
+    for f in fact:
+        print(f, end="", flush=True)
+        t.sleep(0.08)
 
+    print()
     lift_off_message = r'''
 
                                SYSTEM READY. PREPARE FOR LIFTOFF.
@@ -55,6 +72,7 @@ def loading_bar():  # function for the loading bar!
         print(letters, end="", flush=True)
         t.sleep(0.01)
     t.sleep(0.8)
+
 
 
 t.sleep(.5)
@@ -178,49 +196,50 @@ for i in log_in_message:
     t.sleep(0.01)
     # authentication input
 
+# Initialize with a default value to prevent NameError
+# Initialize with a default value to prevent NameError
+username = ""
+
 while True:
     authentication = input(" >> ").strip().lower()
-    if authentication in ["1", "log in", "login", "in", "sign in"]:  # LOG IN, signing in to an account made before
+
+    # --- LOG IN BRANCH ---
+    if authentication in ["1","log in","login","in","sign in"]:
         while True:
             username = input("\n Name: ").lower()
             passw = input(" Password: ").lower()
 
-            # Gets the data from the JSON
             account = update_data(username)
 
             if account and account.get("password") == passw:
                 print("\n Login successful.")
-                break
+                break  # Exits password loop
             else:
                 print(" Wrong name or password. Try again!")
-                print("\n" * 10)
-        break
+                print("\n" * 5)
+        break  # Exits main authentication loop
 
+    # --- SIGN UP BRANCH ---
     elif authentication in ["2","sign up","signup","up","create"]:
         username = input(" Name: ").lower()
         passw = input(" Password: ").lower()
 
         if update_data(username,passw,signup=True) == "exists":
             print("[!] That name already exists! Try logging in.")
-
-            continue  # Goes back to the "Log In vs Sign Up" prompt
+            continue  # Restarts the choice loop
 
         creation_message = "\n    Your account has been created! \n    Please proceed to the code!\n"
-
         for char in creation_message:
             print(char,end="",flush=True)
-
             t.sleep(0.01)
+        break  # Exits main authentication loop
 
-        break  # Exit the authentication loop
-
-
-account = update_data(username)  # Load the newly created account
+# This runs only after the main loop is broken by a successful Login or Signup
+account = update_data(username)
 loginMessage = "\n*** ACCESS GRANTED ***\n"
 for i in loginMessage:
-    print(i, end="", flush=True)
-    t.sleep(.5)
-
+    print(i,end="",flush=True)
+    t.sleep(0.05)
 
 # ======================================================================================================================
 # ======================================================================================================================
