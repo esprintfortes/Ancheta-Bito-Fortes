@@ -196,20 +196,23 @@ while True:
                 print("\n" * 10)
         break
 
-    elif authentication in ["2", "sign up", "signup", "up", "create"]:  # SIGN UP, creating a new account
+    elif authentication in ["2","sign up","signup","up","create"]:
         username = input(" Name: ").lower()
-        passw = input("Password: ").lower()
-        update_data(username, passw, signup=True)
-        creation_message = r'''
-                Your account has been created! 
-                Please proceed to the code!
-                '''
-        t.sleep(0.8)
-        for i in creation_message:
-            print(i, end="", flush=True)
-            t.sleep(0.01)
-            break
+        passw = input(" Password: ").lower()
 
+        if update_data(username,passw,signup=True) == "exists":
+            print("[!] That name already exists! Try logging in.")
+
+            continue  # Goes back to the "Log In vs Sign Up" prompt
+
+        creation_message = "\n    Your account has been created! \n    Please proceed to the code!\n"
+
+        for char in creation_message:
+            print(char,end="",flush=True)
+
+            t.sleep(0.01)
+
+        break  # Exit the authentication loop
 
 
 account = update_data(username)  # Load the newly created account
