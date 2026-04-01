@@ -194,7 +194,7 @@ while True:
             else:
                 print(" Wrong name or password. Try again!")
                 print("\n" * 10)
-
+        break
 
     elif authentication in ["2", "sign up", "signup", "up", "create"]:  # SIGN UP, creating a new account
         username = input(" Name: ").lower()
