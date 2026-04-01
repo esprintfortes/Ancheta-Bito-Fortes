@@ -212,8 +212,7 @@ for i in creation_message:
     print(i, end="", flush=True)
     t.sleep(0.01)
 
-    account = update_data(username)  # Load the newly created account
-
+account = update_data(username)  # Load the newly created account
 loginMessage = "\n*** ACCESS GRANTED ***\n"
 for i in loginMessage:
     print(i, end="", flush=True)
