@@ -197,7 +197,6 @@ for i in log_in_message:
     # authentication input
 
 # Initialize with a default value to prevent NameError
-# Initialize with a default value to prevent NameError
 username = ""
 
 while True:
@@ -269,11 +268,31 @@ def physics_mission():
 
     while True:
         sub_choice = input("\nSelect Quarter [1-4]: ").strip()
-        if sub_choice in ["1", "2", "3", "4"]:
-            quarter = f"physics_q{sub_choice}.csv"
+        if sub_choice in ["1","2","3","4"]:
+            if sub_choice in ["3","4"]:
+                print("\n" + "--- SELECT MISSION MODE ---".center(50))
+                print(" [1] > Multiple Choice")
+                print(" [2] > True or False")
+                while True:
+                    mode_choice = input("\nSelect Mode: ").strip().lower()
+                    if mode_choice in ["1", "mc", "multiple", "multiple choice"]:
+                        mode_suffix = "_mc"
+                        break
+                    elif mode_choice in ["2", "tf", "true or false"]:
+                        mode_suffix = "_tf"
+                        break
+                    else:
+                        print("[!] Invalid selection.")
+
+                quarter = f"physics_q{sub_choice}{mode_suffix}.csv"
+            else:
+                # Q1 and Q2 stay as multiple choice!
+                quarter = f"physics_q{sub_choice}.csv"
             break
+
         else:
             print("[!] Invalid mission. Choose 1, 2, 3, or 4.")
+
     try:
         with open(quarter, mode='r', encoding='utf-8') as quarter_file:
             reader = csv.DictReader(quarter_file)
@@ -349,6 +368,10 @@ def physics_mission():
                 print(f"QUESTION: {q['Question']}")
                 t.sleep(0.3)
 
+                # True or False Area
+                if q.get('Choice_1'): print(f" [T] {q['Choice_1']}")
+                if q.get('Choice_2'): print(f" [F] {q['Choice_2']}")
+                # Multiple Choice Area
                 t.sleep(0.4)
                 if q.get('Choice_A'): print(f" [A] {q['Choice_A']}")
                 t.sleep(0.4)
@@ -359,6 +382,11 @@ def physics_mission():
                 if q.get('Choice_D'): print(f" [D] {q['Choice_D']}")
 
                 ans = input("\nYour Answer >> ").strip().upper()
+                # If they type 'T' or 'F', convert it to the full word to match your CSV
+                if ans == "T":
+                    ans = "TRUE"
+                elif ans == "F":
+                    ans = "FALSE"
 
                 if ans == q['Correct'].upper():
                     if q.get('Explanation'):
@@ -395,6 +423,7 @@ def physics_mission():
 
 # ======================================================================================================================
 def review_page(missed_list, score, total):
+    print("\n"*40)
     """Displays a summary of the mission and specific questions missed."""
     print("\n" + "═" * 50)
     print(" 📋  PERSONAL PERFORMANCE ".center(50))
@@ -422,7 +451,6 @@ def review_page(missed_list, score, total):
             t.sleep(0.4)
 
     print("\n" + "═" * 50)
-    input(" Mission logged. Press [ENTER] to return to HQ...")
 
 
 # ======================================================================================================================
@@ -445,9 +473,10 @@ WHAT IS THIS PROGRAM?
 
     [Part B: How to use it]
    HOW TO USE IT:
-   1. Navigation: Use the numbers [1-3] to select menu options.
-   2. Quizzes: Type the letter (A, B, C, or D) of your answer.
+   1. Navigation: Use the numbers [1-3] or write your choice to select menu options.
+   2. Quizzes: Type the letter (A, B, C, or D) or the word (True or False) of your answer.
    3. Scoring: Correct answers give full points. Mistakes have a -0.25 penalty, but you can retry until you get it right!
+   4. Review: After the quiz, a section will show your mistakes for review!
 
     # Part C: Menu Meanings
     MENU OPTIONS:
