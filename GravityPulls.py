@@ -180,8 +180,7 @@ for i in log_in_message:
 
 while True:
     authentication = input(" >> ").strip().lower()
-
-    if authentication == ["1", "log in", "login", "in"]:  # LOG IN, signing in to an account made before
+    if authentication in ["1", "log in", "login", "in"]:  # LOG IN, signing in to an account made before
         while True:
             username = input("\n Name: ").lower()
             passw = input(" Password: ").lower()
@@ -197,7 +196,7 @@ while True:
                 print("\n" * 10)
             break
 
-    elif authentication == ["2", "sign up", "signup", "up", "create"]:  # SIGN UP, creating a new account
+    elif authentication in ["2", "sign up", "signup", "up", "create"]:  # SIGN UP, creating a new account
         username = input(" Name: ").lower()
         passw = input("Password: ").lower()
         update_data(username, passw, signup=True)
