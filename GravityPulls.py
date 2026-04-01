@@ -202,21 +202,21 @@ while True:
         update_data(username, passw, signup=True)
         break
 
-    creation_message = r'''
-        Your account has been created! 
-        Please proceed to the code!
-    '''
+        creation_message = r'''
+            Your account has been created! 
+            Please proceed to the code!
+        '''
 
-    t.sleep(0.8)
-    for i in creation_message:
-        print(i, end="", flush=True)
-        t.sleep(0.01)
+        t.sleep(0.8)
+        for i in creation_message:
+            print(i, end="", flush=True)
+            t.sleep(0.01)
 
 account = update_data(username)  # Load the newly created account
 loginMessage = "\n*** ACCESS GRANTED ***\n"
 for i in loginMessage:
     print(i, end="", flush=True)
-    t.sleep(.05)
+    t.sleep(.5)
 
 
 # ======================================================================================================================
