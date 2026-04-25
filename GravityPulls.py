@@ -27,6 +27,7 @@ for line in robot.split('\n'):  # used .split to split the string!
     t.sleep(0.3)
 
 
+
 # ======================================================================================================================
 def get_facts():
     # In this part Edgar integrated a random physics fact that prints during the loading bar animation, just like MLBB.
@@ -257,14 +258,12 @@ def physics_mission():
                        Conservation of Mechanical Energy, Heat Transfer.)
         [Q3] > Quarter 3 (Introduction to Waves, Characteristic Behaviors of Waves, Sound as a Wave and the Physics of Echolocation, 
                        Historical Development of Ideas about Light, Colors, Wave Nature of Light, Electromagnetic Wave)
-        [Q4] > Quarter 4 in Progress (Historical Development & Application of Electricity and Magnetism, Electric Charge & Charging Methods, 
+        [Q4] > Quarter 4 (Historical Development & Application of Electricity and Magnetism, Electric Charge & Charging Methods, 
                        Problem Solving in Coulomb’s Law, Voltage, Current, and Resistance, Electromagnetism, and Electrical Safety)
        '''
     print()
     print("\n" + "--- SELECT WHAT QUARTER YOU DESIRE ---".center(50))
-    for index in choices:
-        print(index, end="", flush=True)
-        t.sleep(0.01)
+    print(choices)
 
     while True:
         sub_choice = input("\nSelect Quarter [1-4]: ").strip()
@@ -321,7 +320,7 @@ def physics_mission():
                     limit = 10
                     break
                 elif difficulty == "3":
-                    limit = 50
+                    limit = 20
                     break
                 elif difficulty == "4":
                     # Dynamic limit based on how many CSV lines it has
@@ -383,10 +382,11 @@ def physics_mission():
 
                 ans = input("\nYour Answer >> ").strip().upper()
                 # If they type 'T' or 'F', convert it to the full word to match your CSV
-                if ans == "T":
-                    ans = "TRUE"
-                elif ans == "F":
-                    ans = "FALSE"
+
+                if ans.upper() == "TRUE":
+                    ans = "T"
+                elif ans.upper() == "FALSE":
+                    ans = "F"
 
                 if ans == q['Correct'].upper():
                     if q.get('Explanation'):
@@ -462,35 +462,93 @@ def show_instructions():
 
     """Explains what the program does, how to use it, and menu options."""
     instructions = r'''
-   📜 PROGRAM INSTRUCTIONS & MANUAL 📜
+  📜 PROGRAM INSTRUCTIONS & MANUAL 📜
+   ===================================
 
-    [Part A: What it does]
+   🔹 WHAT IS THIS PROGRAM?
+   "Gravity Pulls With Curiosity" is an interactive study tool
+   designed for Grade 8 students to learn Physics through
+   gamified quizzes, instant feedback, and review systems.
 
-WHAT IS THIS PROGRAM?
-    'Gravity Pulls With Curiosity' is a study tool built specifically
-    for Grade 8 students to master Physics. It uses gamified quizzes
-    to help you understand Motion, Force, Energy, and Heat Transfer.
+   It helps you understand topics such as Motion, Force,
+   Energy, Heat Transfer, Waves, and more.
 
-    [Part B: How to use it]
-   HOW TO USE IT:
-   1. Navigation: Use the numbers [1-3] or write your choice to select menu options.
-   2. Quizzes: Type the letter (A, B, C, or D) or the word (True or False) of your answer.
-   3. Scoring: Correct answers give full points. Mistakes have a -0.25 penalty, but you can retry until you get it right!
-   4. Review: After the quiz, a section will show your mistakes for review!
+   -----------------------------------
 
-    # Part C: Menu Meanings
-    MENU OPTIONS:
-    [1] Physics Mission: Take pre-made quizzes based on school quarters.
-    [2] Instructions: Opens this manual.
-    [3] Exit: Safely closes the system.
+   🔹 HOW TO USE THE PROGRAM
+   
+   1. START-UP
+      - Launch the program!
+      - Log in or sign up to your account!
 
-    '''
+   2. NAVIGATION
+      Use the menu options:
+      [1] Physics Mission → Start a quiz mission
+      [2] Instructions    → View this manual
+      [3] Exit            → Exit the program
+
+      (You may also type keywords like "mission", "help", or "exit")
+
+   -----------------------------------
+
+   🔹 QUIZ FLOW
+   Step 1: Select a Quarter (Q1–Q4)
+   Step 2: Choose Difficulty
+           Easy       → 5 Questions
+           Medium     → 10 Questions
+           Hard       → 20 Questions
+           Limitless  → All Questions
+
+   Step 3: Answer Questions
+           - Multiple Choice → A, B, C, D
+           - True/False      → TRUE / FALSE (or T/F) * Applies only if you choose quarter 3 or 4
+           
+   -----------------------------------
+
+   🔹 SCORING SYSTEM
+
+   ✔ Correct Answer → Full points earned
+   ❌ Wrong Answer  → -0.25 penalty per trial till zero
+
+   You can retry the question until:
+   - You get it correct, OR
+   - The score reaches zero
+
+   -----------------------------------
+
+   🔹 FEEDBACK SYSTEM
+   - Every answer includes an explanation 📖
+   - Wrong answers give hints and encouragement
+   - Helps you understand WHY, not just WHAT
+
+   -----------------------------------
+
+   🔹 REVIEW PAGE
+   After completing a quiz, you will see:
+   - Final score and percentage
+   - Questions you got wrong
+   - Correct answers with explanations
+
+   Use this to improve your weak points
+
+   -----------------------------------
+
+   🔹 TIPS FOR SUCCESS
+
+   - Take your time and read carefully
+   - Learn from explanations
+   - Don’t rush — focus on understanding
+   - Practice regularly to improve
+
+   ===================================
+   Scroll Back Up To Read!
+   '''
 
     for counter in instructions:
         print(counter, end="", flush=True)
-        t.sleep(0.01)
+        t.sleep(0.001)
 
-    t.sleep(6.7)
+
 
 
 # =======================================================================================================================

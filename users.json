@@ -1,6 +1,10 @@
 {
     "curiosity": {
         "password": "developer",
-        "score": 27.75
+        "score": 59.25
+    },
+    "joebart": {
+        "password": "jobarte",
+        "score": 0
     }
 }
